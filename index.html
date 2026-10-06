@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>revival</title>
+
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+>
+
+
+<link
+    href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    rel="stylesheet"
+>
+
+
+<script>
+
+window.MathJax = {
+
+    tex: {
+
+        inlineMath: [
+            ['\\(', '\\)']
+        ],
+
+        displayMath: [
+            ['\\[', '\\]']
+        ]
+
+    },
+
+    svg: {
+        fontCache: 'global'
+    }
+
+};
+
+</script>
+
+
+<script
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+
+<style>
+
+* {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+    font-family: 'Poppins', sans-serif;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #f8fafc
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+}
+
+
+.container {
+
+    width: 100%;
+
+    max-width: 650px;
+
+}
+
+
+.card {
+
+    background: white;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 50px
+        rgba(15,23,42,0.12);
+
+}
+
+
+.header {
+
+    background: #0724ca;
+
+    color: white;
+
+    padding: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.avatar {
+
+    width: 45px;
+
+    height: 45px;
+
+    background:
+        rgba(255,255,255,0.15);
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 25px;
+
+}
+
+
+.header h1 {
+
+    font-size: 18px;
+
+}
+
+
+.header p {
+
+    font-size: 10px;
+
+    opacity: 0.8;
+
+    margin-top: 3px;
+
+}
+
+
+.info {
+
+    padding: 10px 18px;
+
+    background: #eff6ff;
+
+    color: #1e40af;
+
+    font-size: 10px;
+
+    border-bottom: 1px solid #dbeafe;
+
+}
+
+
+.chatbox {
+
+    height: 500px;
+
+    overflow-y: auto;
+
+    padding: 22px;
+
+    background: #f8fafc;
+
+}
+
+
+.chat {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-bottom: 18px;
+
+}
+
+
+.chat.outgoing {
+
+    justify-content: flex-end;
+
+}
+
+
+.bot-icon {
+
+    width: 30px;
+
+    height: 30px;
+
+    background: #0724ca;
+
+    color: white;
+
+    border-radius: 8px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+}
+
+
+.message {
+
+    max-width: 78%;
+
+}
+
+
+.message p {
+
+    background: white;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius:
+        10px 10px 10px 0;
+
+    padding: 11px 14px;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+}
+
+
+.message img {
+
+    display: block;
+
+    max-width: 100%;
+
+    max-height: 280px;
+
+    margin-top: 8px;
+
+    border-radius: 8px;
+
+    border: 1px solid #e2e8f0;
+
+    object-fit: contain;
+
+}
+
+
+.outgoing .message p {
+
+    background: #0724ca;
+
+    color: white;
+
+    border: none;
+
+    border-radius:
+        10px 10px 0 10px;
+
+}
+
+
+.input-area {
+
+    display: flex;
+
+    gap: 6px;
+
+    padding: 10px;
+
+    border-top: 1px solid #e2e8f0;
+
+}
+
+
+textarea {
+
+    flex: 1;
+
+    border: none;
+
+    outline: none;
+
+    resize: none;
+
+    padding: 11px;
+
+    font-size: 12px;
+
+}
+
+
+.send {
+
+    width: 45px;
+
+    height: 45px;
+
+    border: none;
+
+    background: #0724ca;
+
+    color: white;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 19px;
+
+}
+
+
+.footer {
+
+    text-align: center;
+
+    padding: 13px;
+
+    font-size: 9px;
+
+    color: #94a3b8;
+
+}
+
+
+@media(max-width:600px) {
+
+    body {
+
+        padding: 0;
+
+    }
+
+    .card {
+
+        border-radius: 0;
+
+        min-height: 100vh;
+
+    }
+
+    .chatbox {
+
+        height: calc(100vh - 210px);
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+<div class="card">
+
+
+<div class="header">
+
+    <div class="avatar">
+
+        <i class='bx bx-bot'></i>
+
+    </div>
+
+    <div>
+
+        <h1>revival</h1>
+
+        <p>
+            X TKJ • Eksponen
+        </p>
+    </div>
+
+</div>
+
+
+<div class="info">
+
+    Dibuat oleh sekawan limo
+
+</div>
+
+
+<div
+    class="chatbox"
+    id="chatbox"
+>
+
+
+<div class="chat incoming">
+
+    <div class="bot-icon">
+
+        <i class='bx bx-bot'></i>
+
+    </div>
+
+    <div class="message">
+
+        <p>
+            Hai! 👋
+            Saya revival.
+            Silakan tanyakan sesuatu tentang
+            materi Eksponen.
+        </p>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<div class="input-area">
+
+    <textarea
+        id="input"
+        rows="1"
+        placeholder="Ketik pertanyaan..."
+    ></textarea>
+
+    <button
+        class="send"
+        onclick="sendMessage()"
+    >
+
+        <i class='bx bx-send'></i>
+
+    </button>
+
+</div>
+
+
+<div class="footer">
+
+    MathBot Builder • Rule-Based Learning
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script>
+
+
+const rules = [{"keywords":["pengertian eksponen"],"question":"apa pengertian eksponen?","category":"Konsep","response":"bentuk perpangkatan dalam matematika yang menunjukkan perkalian berulang suatu bilangan dengan bilangan itu sendiri.","image":null},{"keywords":["rumus pangkat perkalian"],"question":"apa rumus pangkat perkalian?","category":"Rumus","response":"\\(a^m \\times a^n = a^{m+n}\\)","image":null},{"keywords":["contoh soal eksponen"],"question":"berikan contoh soal  eksponen","category":"Contoh","response":"2³ × 2² = 2³⁺² = 2⁵ = 32","image":null},{"keywords":["latihan soal eksponen"],"question":"berikan latihan soal eksponen","category":"Latihan","response":"Sederhanakan bentuk dari \\[\\frac{x^{5}\\cdot x^{3}}{x^{4}}\\]!Pembahasan:Gunakan sifat perkalian pangkat (pangkat dijumlahkan) untuk pembilang, lalu sifat pembagian pangkat (pangkat dikurangkan).\\[\\frac{x^{5}\\cdot x^{3}}{x^{4}}=\\frac{x^{5+3}}{x^{4}}=\\frac{x^{8}}{x^{4}}=x^{8-4}=\\mathbf{x}^{\\mathbf{4}}\\]","image":null},{"keywords":["kesalahan umum"],"question":"kesalahan umum yang sering terjadi","category":"Kesalahan Umum","response":"Menjumlahkan atau Mengurangi Bilangan Pokok (Basis)Salah: \\(2^3 \\times 2^2 = 4^5\\)Benar: \\(2^3 \\times 2^2 = 2^{3+2} = 2^5\\)Penjelasan: Saat mengalikan eksponen dengan basis yang sama, hanya pangkatnya yang dijumlahkan, sedangkan bilangan basisnya tetap.","image":null},{"keywords":["sifat eksponen"],"question":"jelaskan sifat sifat eksponen!","category":"Rumus","response":"sifat perkalian pangkat:\nJika dua bilangan berpangkat dengan basis yang sama dikalikan, maka pangkatnya cukup dijumlahkan. Rumus:\\[a^{m}\\times a^{n}=a^{m+n}\\]Contoh: \\[3^{2}\\times 3^{4}=3^{2+4}=3^{6}=729\\]\nsifat pembagian pangkat:\nJika dua bilangan berpangkat dengan basis yang sama dibagi, maka pangkatnya cukup dikurangkan (pangkat pembilang dikurangi pangkat penyebut). Rumus:\\[\\frac{a^{m}}{a^{n}}=a^{m-n}\\quad (a\\ne 0)\\]Contoh: \\[\\frac{5^{7}}{5^{4}}=5^{7-4}=5^{3}=125\\]\nsifat pangkat dipangkatkan:\nJika suatu bilangan berpangkat dipangkatkan lagi dengan bilangan lain, maka kedua pangkat tersebut harus dikalikan. Rumus:\\[(a^{m})^{n}=a^{m\\times n}\\]Contoh: \\[(2^{3})^{2}=2^{3\\times 2}=2^{6}=64\\]\nsifat pangkat pecahan:\nPangkat pecahan merupakan cara lain untuk menuliskan bentuk akar. Pembilang menjadi pangkat dari bilangan di dalam akar, sedangkan penyebut menjadi nilai akarnya. Rumus:\\[a^{\\frac{m}{n}}=\\sqrt[n]{a^{m}}\\]Contoh: \\[8^{\\frac{2}{3}}=\\sqrt[3]{8^{2}}=\\sqrt[3]{64}=4\\quad (\\text{karena\\ }4\\times 4\\times 4=64)\\]\nsifat pangkat negatif:\nPangkat negatif digunakan untuk menunjukkan kebalikan (per) dari bilangan pangkat positifnya. Sifat ini mengubah posisi bilangan menjadi pecahan. Rumus:\\[a^{-n}=\\frac{1}{a^{n}}\\quad (a\\ne 0)\\]Contoh: \\[2^{-3}=\\frac{1}{2^{3}}=\\frac{1}{8}\\]\nsifat pangkat 0:\nSetiap bilangan real yang bukan nol, jika dipangkatkan dengan nol, hasilnya akan selalu sama dengan 1. Rumus:\\[a^{0}=1\\quad (a\\ne 0)\\]Contoh: \\[5^{0}=1\\quad \\text{atau}\\quad 999^{0}=1\\]","image":null}];
+
+
+function normalizeText(text) {
+
+    return text
+
+        .toLowerCase()
+
+        .trim()
+
+        .replace(/\s+/g, " ");
+
+}
+
+
+function findResponse(input) {
+
+    const normalized =
+        normalizeText(input);
+
+
+    let bestRule = null;
+
+    let bestScore = 0;
+
+
+    rules.forEach(rule => {
+
+        let score = 0;
+
+
+        rule.keywords.forEach(keyword => {
+
+            const key =
+                normalizeText(keyword);
+
+
+            if (
+                normalized.includes(key)
+            ) {
+
+                score += key.length;
+
+            }
+
+        });
+
+
+        if (score > bestScore) {
+
+            bestScore = score;
+
+            bestRule = rule;
+
+        }
+
+    });
+
+
+    if (bestRule) {
+
+        return bestRule;
+
+    }
+
+
+    return {
+
+        response:
+            "Maaf, saya belum memahami pertanyaan tersebut. Coba gunakan kata kunci lain atau tanyakan dengan cara berbeda.",
+
+        image: null
+
+    };
+
+}
+
+
+function addMessage(
+    type,
+    text,
+    image
+) {
+
+    const chatbox =
+        document.getElementById("chatbox");
+
+    const chat =
+        document.createElement("div");
+
+    chat.className =
+        "chat " + type;
+
+    if (type === "incoming") {
+
+        chat.innerHTML = `
+            <div class="bot-icon">
+                <i class='bx bx-bot'></i>
+            </div>
+
+            <div class="message"></div>
+        `;
+
+    } else {
+
+        chat.innerHTML = `
+            <div class="message"></div>
+        `;
+
+    }
+
+    const message =
+        chat.querySelector(".message");
+
+    if (text) {
+
+        const paragraph =
+            document.createElement("p");
+
+        paragraph.textContent =
+            text;
+
+        message.appendChild(paragraph);
+
+    }
+
+    if (image && image.dataUrl) {
+
+        const imageElement =
+            document.createElement("img");
+
+        imageElement.src =
+            image.dataUrl;
+
+        imageElement.alt =
+            image.name || "Gambar respons chatbot";
+
+        imageElement.loading =
+            "lazy";
+
+        message.appendChild(imageElement);
+
+    }
+
+    chatbox.appendChild(chat);
+
+    chatbox.scrollTop =
+        chatbox.scrollHeight;
+
+    if (
+        window.MathJax &&
+        MathJax.typesetPromise
+    ) {
+
+        MathJax.typesetPromise([
+            chat
+        ]);
+
+    }
+
+}
+
+
+
+function sendMessage() {
+
+    const input =
+        document.getElementById("input");
+
+
+    const text =
+        input.value.trim();
+
+
+    if (!text) {
+
+        return;
+
+    }
+
+
+    addMessage(
+        "outgoing",
+        text
+    );
+
+
+    input.value = "";
+
+
+    setTimeout(() => {
+
+        const response =
+            findResponse(text);
+
+
+        addMessage(
+            "incoming",
+            response.response || "",
+            response.image || null
+        );
+
+    }, 350);
+
+}
+
+
+document
+    .getElementById("input")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter" &&
+                !event.shiftKey
+            ) {
+
+                event.preventDefault();
+
+                sendMessage();
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>
